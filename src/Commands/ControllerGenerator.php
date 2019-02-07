@@ -155,17 +155,21 @@ class ControllerGenerator extends Command
 
     private function indexMethod($model, $fileStringed)
     {
-        $replace = sprintf("\$records = %s::paginate();
+        $replace = sprintf("\$this->authorize('view', %s::class);
+        
+        \$records = %s::paginate();
 
         \$params = json_decode(file_get_contents(base_path() . '/cruds/%s.json'));
         
-        return view('admin.%s.index', compact('records', 'params'));", $model, $model, strtolower($model));
+        return view('admin.%s.index', compact('records', 'params'));", $model, $model, $model, strtolower($model));
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
 
     private function createMethod($model, $fileStringed)
     {
-        $replace = sprintf("return view('admin.%s.create');", strtolower($model));
+        $replace = sprintf("\$this->authorize('create', %s::class);
+        
+        return view('admin.%s.create');", $model, strtolower($model));
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
 
@@ -173,7 +177,9 @@ class ControllerGenerator extends Command
     {
         $lowerModel = strtolower($model);
 
-        $replace = sprintf("try {
+        $replace = sprintf("\$this->authorize('create', %s::class);
+        
+        try {
             \$this->%sService->store(\$request->validated());
         } catch (\Exception \$e) {
             flash()->error(__('There was an error creating the %s'));
@@ -181,7 +187,7 @@ class ControllerGenerator extends Command
         }
 
         flash()->success(__('%s successful inserted'));
-        return redirect()->route('admin.%s.index');", $lowerModel, $lowerModel, $model, $lowerModel);
+        return redirect()->route('admin.%s.index');", $model, $lowerModel, $lowerModel, $model, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
@@ -190,9 +196,11 @@ class ControllerGenerator extends Command
     {
         $lowerModel = strtolower($model);
 
-        $replace = sprintf("return view('admin.%s.show', [
+        $replace = sprintf("\$this->authorize('view', $%s);
+        
+        return view('admin.%s.show', [
             'record' => \$%s
-        ]);", $lowerModel, $lowerModel);
+        ]);", $lowerModel, $lowerModel, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
@@ -201,9 +209,10 @@ class ControllerGenerator extends Command
     {
         $lowerModel = strtolower($model);
 
-        $replace = sprintf("return view('admin.%s.edit', [
+        $replace = sprintf("\$this->authorize('view', $%s);
+        return view('admin.%s.edit', [
             'record' => \$%s
-        ]);", $lowerModel, $lowerModel);
+        ]);", $lowerModel, $lowerModel, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
@@ -212,7 +221,9 @@ class ControllerGenerator extends Command
     {
         $lowerModel = strtolower($model);
 
-        $replace = sprintf("try {
+        $replace = sprintf("\$this->authorize('view', $%s);
+        
+        try {
             \$%s = \$this->%sService->update(\$%s, \$request->validated());
         } catch (\Exception \$e) {
             flash()->error(__('There was an error updating the %s'));
@@ -220,7 +231,7 @@ class ControllerGenerator extends Command
         }
 
         flash()->success(__('%s successful updated'));
-        return redirect()->route('admin.%s.show', [\$%s]);", $lowerModel, $lowerModel, $lowerModel, $lowerModel, $model, $lowerModel, $lowerModel);
+        return redirect()->route('admin.%s.show', [\$%s]);", $lowerModel, $lowerModel, $lowerModel, $lowerModel, $lowerModel, $model, $lowerModel, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
@@ -229,7 +240,9 @@ class ControllerGenerator extends Command
     {
         $lowerModel = strtolower($model);
 
-        $replace = sprintf("try {
+        $replace = sprintf("\$this->authorize('view', $%s);
+        
+        try {
             \$this->%sService->destroy(\$%s);
         } catch (\Exception \$e) {
             flash()->error(__('There was an error creating the %s'));
@@ -237,7 +250,7 @@ class ControllerGenerator extends Command
         }
 
         flash()->success(__('%s successful deleted'));
-        return redirect()->route('admin.%s.index');", $lowerModel, $lowerModel, $lowerModel, $model, $lowerModel);
+        return redirect()->route('admin.%s.index');", $lowerModel,  $lowerModel, $lowerModel, $lowerModel, $model, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }

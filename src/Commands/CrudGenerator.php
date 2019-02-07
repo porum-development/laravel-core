@@ -83,6 +83,10 @@ class CrudGenerator extends Command
             $this->generateRoutes($model);
         }
 
+        if ($this->force || $this->confirm('Deseja gerar as Views?', true)) {
+            $this->generateViews($model);
+        }
+
         $this->info('Arquivos gerados com sucesso');
     }
 
@@ -122,6 +126,14 @@ class CrudGenerator extends Command
     {
         Artisan::call('devplace:generate-routes', [
             'model' => $model
+        ], $this->getOutput());
+    }
+
+    private function generateViews($model)
+    {
+        Artisan::call('devplace:generate-views', [
+            'model' => $model,
+            '--force' => $this->force
         ], $this->getOutput());
     }
 }
