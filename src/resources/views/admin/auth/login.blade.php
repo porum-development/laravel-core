@@ -16,7 +16,7 @@
                     <!-- END Header -->
 
                     {!! Form::open(['route' => 'login', 'method' => 'post']) !!}
-                    @dpBlock
+                    @component('devplace::components.ui.blocks.default', ['bg' => 'bg-gd-aqua'])
                         @slot('title')
                             {{ __('Login') }}
                         @endslot
@@ -55,18 +55,18 @@
 
                         @slot('footer')
                             <div class="form-group text-center clearfix">
-                                @dpLink(['href' => route('register'), 'icon' => 'fa-plus', 'class' => 'pull-left'])
+                                @component('devplace::components.ui.links.default', ['href' => route('register'), 'icon' => 'fa-plus', 'class' => 'pull-left'])
                                     {{ __('Create Account') }}
-                                @enddpLink
+                                @endcomponent
 
                                 @if (Route::has('password.request'))
-                                    @dpLink(['href' => route('password.request'), 'icon' => 'fa-warning', 'class' => 'pull-right'])
+                                    @component('devplace::components.ui.links.default', ['href' => route('password.request'), 'icon' => 'fa-warning', 'class' => 'pull-right'])
                                     {{ __('Forgot Your Password?') }}
-                                    @enddpLink
+                                    @endcomponent
                                 @endif
                             </div>
                         @endslot
-                    @enddpBlock
+                    @endcomponent
                 {!! Form::close() !!}
                 <!-- END Sign In Form -->
                 </div>

@@ -13,64 +13,50 @@
             </div>
         </h2>
 
-        <div class="block">
-            <div class="block-header block-header-default">
-                <h3 class="block-title">
-                    {{ __($params->name . ' list') }}
-                </h3>
-                <div class="block-options">
+        @component('devplace::components.ui.blocks.default')
+            @slot('title')
+                {{ __($params->name . ' list') }}
+            @endslot
 
-                </div>
-            </div>
-            <div class="block-content">
-                <table class="table table-hover table-vcenter">
-                    <thead class="thead-light">
+            @component('devplace::components.table.default')
+
+                @slot('thead')
+                    <th class="text-center" style="width: 50px;">#</th>
+                    @foreach($params->fields as $field)
+                        @if($field->visibleOnList)
+                            <th>{{ __($field->name) }}</th>
+                        @endif
+                    @endforeach
+                    <th class="text-center" style="width: 100px;">{{ __('Actions') }}</th>
+                @endslot
+
+                @foreach($records as $record)
                     <tr>
-                        <th class="text-center" style="width: 50px;">#</th>
+                        <th class="text-center" scope="row">{{ $record->id }}</th>
                         @foreach($params->fields as $field)
                             @if($field->visibleOnList)
-                                <th>{{ __($field->name) }}</th>
+                                <td>
+                                    @if($field->type == 'image')
+                                        <img class="img-avatar img-avatar48"
+                                             src="{{ $record->{$field->name} ?? '/media/avatars/avatar0.jpg' }}"
+                                             alt="{{ $record->{$field->name} }}">
+                                    @else
+                                        {{ $record->{$field->name} }}
+                                    @endif
+                                </td>
                             @endif
                         @endforeach
-                        <th class="text-center" style="width: 100px;">{{ __('Actions') }}</th>
+                        <td class="text-center">
+                            @component('devplace::components.table.column.actions', ['edit' => route('admin.' . strtolower($params->name) . '.edit', [$record])])@endcomponent
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($records as $record)
-                        <tr>
-                            <th class="text-center" scope="row">{{ $record->id }}</th>
-                            @foreach($params->fields as $field)
-                                @if($field->visibleOnList)
-                                    <td>
-                                        @if($field->type == 'image')
-                                            <img class="img-avatar img-avatar48"
-                                                 src="{{ $record->{$field->name} ?? '/media/avatars/avatar0.jpg' }}"
-                                                 alt="{{ $record->{$field->name} }}">
-                                        @else
-                                            {{ $record->{$field->name} }}
-                                        @endif
-                                    </td>
-                                @endif
-                            @endforeach
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <a href="{{ route('admin.' . strtolower($params->name) . '.edit', [$record]) }}" class="btn btn-sm btn-secondary js-tooltip-enabled"
-                                            data-toggle="tooltip" title="" data-original-title="{{ __('Edit') }}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-sm btn-secondary js-tooltip-enabled"
-                                            data-toggle="tooltip" title="" data-original-title="{{ __('Delete') }}">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                {!! $records->links() !!}
-            </div>
-        </div>
+                @endforeach
+            @endcomponent
+
+            {!! $records->links() !!}
+        @endcomponent
+
+
     </div>
     <!-- END Page Content -->
 @endsection
