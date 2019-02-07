@@ -24,7 +24,11 @@
                     <th class="text-center" style="width: 50px;">#</th>
                     @foreach($params->fields as $field)
                         @if($field->visibleOnList)
-                            <th>{{ __($field->name) }}</th>
+                            @if($field->type == 'image')
+                                <th style="width: 50px">{{ __($field->name) }}</th>
+                            @else
+                                <th>{{ __($field->name) }}</th>
+                            @endif
                         @endif
                     @endforeach
                     <th class="text-center" style="width: 100px;">{{ __('Actions') }}</th>

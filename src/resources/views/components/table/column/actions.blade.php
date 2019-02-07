@@ -1,4 +1,5 @@
 <div class="btn-group">
+    {{ $slot }}
     <a href="{{ $edit }}"
        class="btn btn-sm btn-secondary js-tooltip-enabled"
        data-toggle="tooltip" title="" data-original-title="{{ __('Edit') }}">
