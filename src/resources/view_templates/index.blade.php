@@ -7,7 +7,7 @@
             {{ __($params->name . ' Management') }}
 
             <div class="pull-right">
-                <a href="{{ route('admin.' . strtolower($params->name) . '.create') }}" class="btn btn-success mb-5">
+                <a href="{{ route('admin.' . strtolower($params->name) . '.create') }}" class="btn btn-rounded btn-success mb-5">
                     <i class="fa fa-plus"></i> {{ __('New ' . $params->name) }}
                 </a>
             </div>
@@ -36,17 +36,15 @@
 
                 @foreach($records as $record)
                     <tr>
-                        <th class="text-center" scope="row">{{ $record->id }}</th>
+                        <th class="text-center" scope="row">
+                            <a href="{{ route('admin.' . strtolower($params->name) . '.show', [$record]) }}">
+                                {{ $record->id }}
+                            </a>
+                        </th>
                         @foreach($params->fields as $field)
                             @if($field->visibleOnList)
                                 <td>
-                                    @if($field->type == 'image')
-                                        <img class="img-avatar img-avatar48"
-                                             src="{{ $record->{$field->name} ?? '/media/avatars/avatar0.jpg' }}"
-                                             alt="{{ $record->{$field->name} }}">
-                                    @else
-                                        {{ $record->{$field->name} }}
-                                    @endif
+                                    @component('devplace::components.helpers.field', ['field' => $field, 'value' => $record->{$field->name}])@endcomponent
                                 </td>
                             @endif
                         @endforeach

@@ -3,7 +3,6 @@
 namespace DevPlace\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 class ViewGenerator extends Command
 {
@@ -64,18 +63,16 @@ class ViewGenerator extends Command
         }
 
         // index.blade.php
-        $view = 'index';
-        $filePath = $viewsPath . '/' . $view . '.blade.php';
+        $views = ['index', 'show', 'edit'];
 
-        if ($this->createViewFile($filePath, $view)) {
+        foreach ($views as $view) {
+            $filePath = $viewsPath . '/' . $view . '.blade.php';
 
-            $fileContent = file_get_contents(__DIR__  . '/../resources/view_templates/index.blade.php');
-
-            $fileContent = sprintf($fileContent, $model, $model);
-
-            file_put_contents($filePath, $fileContent);
+            if ($this->createViewFile($filePath, $view)) {
+                $fileContent = file_get_contents(__DIR__ . '/../resources/view_templates/' . $view . '.blade.php');
+                file_put_contents($filePath, $fileContent);
+            }
         }
-
     }
 
     private function createViewFile($path, $view): bool

@@ -1,9 +1,11 @@
 <table class="table table-hover table-vcenter">
-    <thead class="thead-light">
-    <tr>
-        {!! $thead !!}
-    </tr>
-    </thead>
+    @if(isset($thead))
+        <thead class="thead-light">
+        <tr>
+            {!! $thead !!}
+        </tr>
+        </thead>
+    @endif
     <tbody>
     {!! $slot !!}
     </tbody>
