@@ -6,7 +6,7 @@
     </li>
     @can('view', \App\Models\User::class)
     <li>
-        <a class="{{ request()->is('admin/user*') ? ' active' : '' }}" href="{{ route('admin.user.index') }}">
+        <a class="{{ request()->is('admin/user*') ? ' active' : '' }}" href="{{ route('admin.user.index', [$locale]) }}">
             <i class="si si-users"></i><span class="sidebar-mini-hide">{{ __('Users') }}</span>
         </a>
     </li>

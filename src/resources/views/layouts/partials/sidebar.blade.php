@@ -74,7 +74,7 @@
                         </a>--}}
                     </li>
                     <li class="list-inline-item">
-                        <a class="link-effect text-dual-primary-dark" href="{{ route('logout') }}"
+                        <a class="link-effect text-dual-primary-dark" href="{{ route('logout', [$locale]) }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             <i class="si si-logout"></i>
@@ -86,7 +86,7 @@
         </div>
         <!-- END Side User -->
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        <form id="logout-form" action="{{ route('logout', [$locale]) }}" method="POST" style="display: none;">
             @csrf
         </form>
 

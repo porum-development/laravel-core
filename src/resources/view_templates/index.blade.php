@@ -7,7 +7,7 @@
             {{ __($params->name . ' Management') }}
 
             <div class="pull-right">
-                <a href="{{ route('admin.' . strtolower($params->name) . '.create') }}" class="btn btn-success mb-5">
+                <a href="{{ route('admin.' . strtolower($params->name) . '.create', [$locale]) }}" class="btn btn-success mb-5">
                     <i class="fa fa-plus"></i> {{ __('New ' . $params->name) }}
                 </a>
             </div>
@@ -51,7 +51,7 @@
                             @endif
                         @endforeach
                         <td class="text-center">
-                            @component('devplace::components.table.column.actions', ['edit' => route('admin.' . strtolower($params->name) . '.edit', [$record])])@endcomponent
+                            @component('devplace::components.table.column.actions', ['edit' => route('admin.' . strtolower($params->name) . '.edit', [$locale, $record])])@endcomponent
                         </td>
                     </tr>
                 @endforeach
