@@ -125,14 +125,16 @@ class ControllerGenerator extends Command
         $string = "Controller
 {
     protected \$%sService;
+    protected \$params;
 
     public function __construct(%sService \$%sService)
     {
         \$this->%sService = \$%sService;
+        \$this->params = json_decode(file_get_contents(base_path() . '/cruds/%s.json'));
     }
     ";
 
-        $replace = sprintf($string, strtolower($model), $model, strtolower($model), strtolower($model), strtolower($model));
+        $replace = sprintf($string, strtolower($model), $model, strtolower($model), strtolower($model), strtolower($model), $model);
 
         return str_replace("Controller
 {", $replace, $fileStringed);
@@ -159,7 +161,7 @@ class ControllerGenerator extends Command
         
         \$records = %s::paginate();
 
-        \$params = json_decode(file_get_contents(base_path() . '/cruds/%s.json'));
+        \$params = \$this->params;
         
         return view('admin.%s.index', compact('records', 'params'));", $model, $model, $model, strtolower($model));
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
@@ -169,7 +171,9 @@ class ControllerGenerator extends Command
     {
         $replace = sprintf("\$this->authorize('create', %s::class);
         
-        return view('admin.%s.create');", $model, strtolower($model));
+        \$params = \$this->params;
+        
+        return view('admin.%s.create', compact('params'));", $model, strtolower($model));
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
 
@@ -198,9 +202,12 @@ class ControllerGenerator extends Command
 
         $replace = sprintf("\$this->authorize('view', $%s);
         
+        \$params = \$this->params;
+        
         return view('admin.%s.show', [
-            'record' => \$%s
-        ]);", $lowerModel, $lowerModel, $lowerModel);
+            'record' => \$%s,
+            'params' => \$params
+        ]);", $lowerModel, $model, $lowerModel, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
@@ -210,8 +217,12 @@ class ControllerGenerator extends Command
         $lowerModel = strtolower($model);
 
         $replace = sprintf("\$this->authorize('view', $%s);
+        
+        \$params = \$this->params;
+        
         return view('admin.%s.edit', [
-            'record' => \$%s
+            'record' => \$%s,
+            'params' => \$params
         ]);", $lowerModel, $lowerModel, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
