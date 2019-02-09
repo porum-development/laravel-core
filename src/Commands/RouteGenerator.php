@@ -64,7 +64,7 @@ class RouteGenerator extends Command
             $routeFile .= PHP_EOL . $group . PHP_EOL . '});';
         };
 
-        $replace = $group . PHP_EOL . sprintf("    Route::resource('%s', '%sController');", strtolower($model), $model);
+        $replace = $group . PHP_EOL . sprintf("        Route::resource('%s', '%sController');", strtolower($model), $model);
         $routeFile = str_replace($group, $replace, $routeFile);
 
         file_put_contents($routePath, $routeFile);

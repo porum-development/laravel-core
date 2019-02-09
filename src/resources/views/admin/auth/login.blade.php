@@ -15,7 +15,7 @@
                     </div>
                     <!-- END Header -->
 
-                    {!! Form::open(['route' => 'login', 'method' => 'post']) !!}
+                    {!! Form::open(['route' => ['login', $locale], 'method' => 'post']) !!}
                     @component('devplace::components.ui.blocks.default', ['bg' => 'bg-gd-aqua'])
                         @slot('title')
                             {{ __('Login') }}
@@ -43,11 +43,11 @@
 
                     <div class="row">
                         <div class="col text-center">
-                            <a class="loginBtn loginBtn-facebook mb-15 mr-5" href="{{ route('login.social', ['facebook']) }}">
+                            <a class="loginBtn loginBtn-facebook mb-15 mr-5" href="{{ route('login.social', [$locale, 'facebook']) }}">
                                 {{ __('Login with Facebook') }}
                             </a>
 
-                            <a class="loginBtn loginBtn-google mb-15 mr-5" href="{{ route('login.social', ['google']) }}">
+                            <a class="loginBtn loginBtn-google mb-15 mr-5" href="{{ route('login.social', [$locale, 'google']) }}">
                                 {{ __('Login with Google') }}
                             </a>
                         </div>
@@ -55,12 +55,12 @@
 
                         @slot('footer')
                             <div class="form-group text-center clearfix">
-                                @component('devplace::components.ui.links.default', ['href' => route('register'), 'icon' => 'fa-plus', 'class' => 'pull-left'])
+                                @component('devplace::components.ui.links.default', ['href' => route('register', [$locale]), 'icon' => 'fa-plus', 'class' => 'pull-left'])
                                     {{ __('Create Account') }}
                                 @endcomponent
 
                                 @if (Route::has('password.request'))
-                                    @component('devplace::components.ui.links.default', ['href' => route('password.request'), 'icon' => 'fa-warning', 'class' => 'pull-right'])
+                                    @component('devplace::components.ui.links.default', ['href' => route('password.request', [$locale]), 'icon' => 'fa-warning', 'class' => 'pull-right'])
                                     {{ __('Forgot Your Password?') }}
                                     @endcomponent
                                 @endif

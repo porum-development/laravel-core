@@ -242,7 +242,7 @@ class ControllerGenerator extends Command
         }
 
         flash()->success(__('%s successful updated'));
-        return redirect()->route('admin.%s.show', [\$%s]);", $lowerModel, $lowerModel, $lowerModel, $lowerModel, $lowerModel, $model, $lowerModel, $lowerModel);
+        return redirect()->route('admin.%s.show', [\$request->getLocale(), \$%s]);", $lowerModel, $lowerModel, $lowerModel, $lowerModel, $lowerModel, $model, $lowerModel, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }

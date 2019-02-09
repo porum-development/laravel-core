@@ -51,7 +51,7 @@
                             @endif
                         @endforeach
                         <td class="text-center">
-                            @component('devplace::components.table.column.actions', ['edit' => route('admin.' . strtolower($params->name) . '.edit', [$record])])@endcomponent
+                            @component('devplace::components.table.column.actions', ['edit' => route('admin.' . strtolower($params->name) . '.edit', [$locale, $record])])@endcomponent
                         </td>
                     </tr>
                 @endforeach

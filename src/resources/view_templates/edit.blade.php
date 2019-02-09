@@ -3,7 +3,7 @@
 @section('content')
     <!-- Page Content -->
     <div class="content">
-        {!! Form::model($record, ['route' => ['admin.' . strtolower($params->name) . '.update', $record]]) !!}
+        {!! Form::model($record, ['route' => ['admin.' . strtolower($params->name) . '.update', $locale, $record], 'files' => true, 'method' => 'put']) !!}
         <h2 class="content-heading p-5 clearfix">
             {{ $record->name }}
             <small>
@@ -11,7 +11,7 @@
             </small>
 
             <div class="pull-right">
-                <a href="{{ route('admin.' . strtolower($params->name) . '.show', [$record]) }}"
+                <a href="{{ route('admin.' . strtolower($params->name) . '.show', [$locale, $record]) }}"
                    class="btn btn-alt-danger btn-rounded mb-5">
                     <i class="fa fa-arrow-left"></i> {{ __('Cancel Edit') }}
                 </a>
@@ -27,16 +27,26 @@
                 {{ __('Editing ' . $params->name) }}
             @endslot
 
-            @component('devplace::components.table.default')
-                @foreach($params->fields as $field)
-                    <div class="row">
-                        <div class="col-12">
-                            @component('devplace::components.helpers.field_form', ['field' => $field])@endcomponent
-                        </div>
+            @foreach($params->fields as $field)
+                <div class="row">
+                    <div class="col-12">
+                        @component('devplace::components.helpers.field_form', ['field' => $field])@endcomponent
                     </div>
-                @endforeach
-            @endcomponent
+                </div>
+            @endforeach
         @endcomponent
+        <hr>
+        <div class="pull-right">
+            <a href="{{ route('admin.' . strtolower($params->name) . '.show', [$locale, $record]) }}"
+               class="btn btn-alt-danger btn-rounded mb-5">
+                <i class="fa fa-arrow-left"></i> {{ __('Cancel Edit') }}
+            </a>
+            <button type="submit"
+                    class="btn btn-success btn-rounded mb-5">
+                <i class="fa fa-check"></i> {{ __('Save ' . $params->name) }}
+            </button>
+        </div>
+
         {!! Form::close() !!}
     </div>
     <!-- END Page Content -->

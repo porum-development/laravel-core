@@ -10,11 +10,11 @@
             </small>
 
             <div class="pull-right">
-                <a href="{{ route('admin.' . strtolower($params->name) . '.edit', [$record]) }}"
+                <a href="{{ route('admin.' . strtolower($params->name) . '.edit', [$locale, $record]) }}"
                    class="btn btn-alt-warning btn-rounded mb-5">
                     <i class="fa fa-pencil"></i> {{ __('Edit ' . $params->name) }}
                 </a>
-                <a href="{{ route('admin.' . strtolower($params->name) . '.edit', [$record]) }}"
+                <a href="{{ route('admin.' . strtolower($params->name) . '.edit', [$locale, $record]) }}"
                    class="btn btn-alt-danger btn-rounded mb-5">
                     <i class="fa fa-trash"></i> {{ __('Delete ' . $params->name) }}
                 </a>
