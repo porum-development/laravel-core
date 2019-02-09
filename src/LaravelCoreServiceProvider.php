@@ -43,14 +43,23 @@ class LaravelCoreServiceProvider extends ServiceProvider
             ]);
         }
 
+        // routes
         $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
 
         // views
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'devplace');
 
+        // translation
+        $this->loadJsonTranslationsFrom(__DIR__ . '/resources/lang');
+
         // publishes
         $this->publishes([
             __DIR__ . '/resources/views' => resource_path('views/vendor/devplace'),
         ], 'devplace-views');
+
+        // translations
+        $this->publishes([
+            __DIR__.'/resources/lang' => resource_path('lang/vendor/devplace'),
+        ], 'devplace-lang');
     }
 }

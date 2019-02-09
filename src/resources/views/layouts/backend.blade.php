@@ -89,6 +89,8 @@
 
             <!-- Main Container -->
             <main id="main-container">
+                @yield('breadcrumb')
+
                 @include('flash::message')
 
                 @yield('content')

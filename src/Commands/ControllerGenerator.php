@@ -163,7 +163,11 @@ class ControllerGenerator extends Command
 
         \$params = \$this->params;
         
-        return view('admin.%s.index', compact('records', 'params'));", $model, $model, $model, strtolower($model));
+        \$breadcrumb = [
+            ['name' => '%ss', 'route' => null]
+        ];
+        
+        return view('admin.%s.index', compact('records', 'params', 'breadcrumb'));", $model, $model, $model, strtolower($model));
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
 
@@ -173,7 +177,26 @@ class ControllerGenerator extends Command
         
         \$params = \$this->params;
         
-        return view('admin.%s.create', compact('params'));", $model, strtolower($model));
+        \$breadcrumb = [
+            ['name' => '%ss', 'route' => route('admin.%s.index', request()->getLocale())],
+            ['name' => 'Creating %s', 'route' => null]
+        ];
+
+        \$vars = [
+            'params' => \$params,
+            'breadcrumb' => \$breadcrumb
+        ];
+
+        foreach (\$params->fields as \$field) {
+            if (\$field->type == 'relation') {
+                \$class = \"App\\\\\\\\Models\\\\\\\\{\$field->options->model}\";
+                if (class_exists(\$class)) {
+                    \$vars[\$field->options->on] = \$class::pluck(\$field->options->display, \$field->options->references);
+                }
+            }
+        }
+        
+        return view('admin.%s.create', \$vars);", $model, $model, strtolower($model), $model, strtolower($model));
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
 
@@ -184,14 +207,14 @@ class ControllerGenerator extends Command
         $replace = sprintf("\$this->authorize('create', %s::class);
         
         try {
-            \$this->%sService->store(\$request->validated());
+            \$inserted = \$this->%sService->store(\$request->validated());
         } catch (\Exception \$e) {
             flash()->error(__('There was an error creating the %s'));
             return redirect()->back()->withInput(\$request->all());
         }
 
         flash()->success(__('%s successful inserted'));
-        return redirect()->route('admin.%s.index');", $model, $lowerModel, $lowerModel, $model, $lowerModel);
+        return redirect()->route('admin.%s.show', [\$request->getLocale(), \$inserted]);", $model, $lowerModel, $lowerModel, $model, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
@@ -204,10 +227,16 @@ class ControllerGenerator extends Command
         
         \$params = \$this->params;
         
+        \$breadcrumb = [
+            ['name' => '%ss', 'route' => route('admin.%s.index', request()->getLocale())],
+            ['name' => '%s details', 'route' => null]
+        ];
+
         return view('admin.%s.show', [
             'record' => \$%s,
-            'params' => \$params
-        ]);", $lowerModel, $model, $lowerModel, $lowerModel);
+            'params' => \$params,
+            'breadcrumb' => \$breadcrumb
+        ]);", $lowerModel, $model, $lowerModel, $model, $lowerModel, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
@@ -216,14 +245,32 @@ class ControllerGenerator extends Command
     {
         $lowerModel = strtolower($model);
 
-        $replace = sprintf("\$this->authorize('view', $%s);
+        $replace = sprintf("\$this->authorize('update', $%s);
         
         \$params = \$this->params;
         
-        return view('admin.%s.edit', [
+        \$breadcrumb = [
+            ['name' => '%ss', 'route' => route('admin.%s.index', request()->getLocale())],
+            ['name' => '%s details', 'route' => route('admin.%s.show', [request()->getLocale(), $%s])],
+            ['name' => 'Editing %s', 'route' => null]
+        ];
+
+        \$vars = [
             'record' => \$%s,
-            'params' => \$params
-        ]);", $lowerModel, $lowerModel, $lowerModel);
+            'params' => \$params,
+            'breadcrumb' => \$breadcrumb
+        ];
+
+        foreach (\$params->fields as \$field) {
+            if (\$field->type == 'relation') {
+                \$class = \"App\\\\\\\\Models\\\\\\\\{\$field->options->model}\";
+                if (class_exists(\$class)) {
+                    \$vars[\$field->options->on] = \$class::pluck(\$field->options->display, \$field->options->references);
+                }
+            }
+        }
+
+        return view('admin.%s.edit', \$vars);", $lowerModel, $model, $lowerModel, $model, $lowerModel, $lowerModel, $model, $lowerModel, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
@@ -232,7 +279,7 @@ class ControllerGenerator extends Command
     {
         $lowerModel = strtolower($model);
 
-        $replace = sprintf("\$this->authorize('view', $%s);
+        $replace = sprintf("\$this->authorize('update', $%s);
         
         try {
             \$%s = \$this->%sService->update(\$%s, \$request->validated());
@@ -251,7 +298,7 @@ class ControllerGenerator extends Command
     {
         $lowerModel = strtolower($model);
 
-        $replace = sprintf("\$this->authorize('view', $%s);
+        $replace = sprintf("\$this->authorize('destroy', $%s);
         
         try {
             \$this->%sService->destroy(\$%s);
@@ -261,7 +308,7 @@ class ControllerGenerator extends Command
         }
 
         flash()->success(__('%s successful deleted'));
-        return redirect()->route('admin.%s.index');", $lowerModel,  $lowerModel, $lowerModel, $lowerModel, $model, $lowerModel);
+        return redirect()->route('admin.%s.index');", $lowerModel, $lowerModel, $lowerModel, $lowerModel, $model, $lowerModel);
 
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }

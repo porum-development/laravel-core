@@ -58,13 +58,19 @@ class RouteGenerator extends Command
 
         $routeFile = file_get_contents($routePath);
 
+        $newResource = sprintf("Route::resource('%s', '%sController');", strtolower($model), $model);
+
+        if (strpos($routeFile, $newResource)) {
+            return;
+        }
+
         $group = "Route::prefix('admin')->namespace('Admin')->as('admin.')->middleware(['verified', 'auth:web'])->group(function () {";
 
         if (!strpos($routeFile, $group)) {
             $routeFile .= PHP_EOL . $group . PHP_EOL . '});';
         };
 
-        $replace = $group . PHP_EOL . sprintf("        Route::resource('%s', '%sController');", strtolower($model), $model);
+        $replace = $group . PHP_EOL . "        $newResource";
         $routeFile = str_replace($group, $replace, $routeFile);
 
         file_put_contents($routePath, $routeFile);

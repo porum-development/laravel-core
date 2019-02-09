@@ -91,7 +91,10 @@ class RequestGenerator extends Command
         $fileStringed = file_get_contents($requestPath);
 
         // replace return false to policy
-        $replace = sprintf("return Auth::user()->can('%s', %s::class);", strtolower($type), $model);
+        $replace = sprintf("return Auth::user()->can('create', %s::class);", $model);
+        if ($type == 'Update') {
+            $replace = sprintf("return Auth::user()->can('update', \$this->%s);", strtolower($model));
+        }
         $fileStringed = str_replace('return false;', $replace, $fileStringed);
 
         // add Auth facade
@@ -106,7 +109,10 @@ class RequestGenerator extends Command
         if (isset($this->jsonFile->fields)) {
             $rules = [];
             foreach ($this->jsonFile->fields as $field) {
-                $rules[$field->name] = $field->rules;
+                if (($type == 'Update' && !$field->onEditForm) || ($type == 'Store' && !$field->onCreateForm)) {
+                    continue;
+                }
+                $rules[$field->name] = $type == 'Update' ? $field->rulesOnUpdate : $field->rulesOnInsert;
             }
 
             $stringRules = '';

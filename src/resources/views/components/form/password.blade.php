@@ -1,5 +1,5 @@
 <div class="form-group">
-    {{ Form::label($name, null) }}
+    {{ Form::label(__($name), null) }}
     {{ Form::password($name, array_merge(['class' => $errors->has($name) ? 'form-control is-invalid' : 'form-control'], $attributes)) }}
 
     @if ($errors->has($name))

@@ -73,17 +73,39 @@ class ServiceGenerator extends Command
             mkdir($serviceDir, 0755, true);
         }
 
+        $lowerModel = strtolower($model);
+
         $fileContent = sprintf(
         "<?php
 namespace App\Services;
 
 use App\Models\%s;
+use Illuminate\Http\UploadedFile;
 
 class %sService
 {
-    public function store(array \$params)
+    public function store(array \$params): %s
     {
-        return %s::create(\$params);
+        \$files = [];
+        foreach(\$params as \$key => \$param) {
+            if (\$param instanceof UploadedFile) {
+                \$files[\$key] = \$param;
+                unset(\$params[\$key]);
+            }
+        }
+
+        \$model = %s::create(\$params);
+
+        if(!empty(\$files)) {
+            foreach(\$files as \$key => \$file) {
+                \$path = \$file->store('public/%s/' . \$model->id);
+                \$model->{\$key} = \$path;
+            }
+
+            \$model->save();
+        }
+
+        return \$model;
     }
 
     public function update(%s \$model, array \$params)
@@ -95,7 +117,8 @@ class %sService
     {
         return \$model->delete();
     }
-}", $model, $model, $model, $model, $model);
+}
+", $model, $model, $model, $model, $lowerModel, $model, $model);
 
         file_put_contents($servicePath, $fileContent);
     }

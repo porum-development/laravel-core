@@ -7,37 +7,34 @@
 @section('content')
     <!-- Page Content -->
     <div class="content">
-        {!! Form::model($record, ['route' => ['admin.' . strtolower($params->name) . '.update', $locale, $record], 'files' => true, 'method' => 'put']) !!}
+        {!! Form::open(['route' => ['admin.' . strtolower($params->name) . '.store', $locale], 'files' => true, 'method' => 'post']) !!}
         <h2 class="content-heading p-5 clearfix">
-            {{ $record->name }}
-            <small>
-                ({{ __($params->name) }})
-            </small>
+            {{ __('Creating ' . $params->name) }}
 
             <div class="pull-right">
-                <a href="{{ route('admin.' . strtolower($params->name) . '.show', [$locale, $record]) }}"
+                <a href="{{ route('admin.' . strtolower($params->name) . '.index', [$locale]) }}"
                    class="btn btn-alt-danger btn-rounded mb-5">
-                    <i class="fa fa-arrow-left"></i> {{ __('Cancel Edit') }}
+                    <i class="fa fa-arrow-left"></i> {{ __('Cancel Create') }}
                 </a>
                 <button type="submit"
                         class="btn btn-success btn-rounded mb-5">
-                    <i class="fa fa-check"></i> {{ __('Save ' . $params->name) }}
+                    <i class="fa fa-check"></i> {{ __('Create ' . $params->name) }}
                 </button>
             </div>
         </h2>
 
         @component('devplace::components.ui.blocks.default')
             @slot('title')
-                {{ __('Editing ' . $params->name) }}
+                {{ __('Fill the form') }}
             @endslot
 
             @foreach($params->fields as $field)
                 <div class="row">
                     <div class="col-12">
-                        @if($field->onEditForm)
+                        @if($field->onCreateForm)
                             @component('devplace::components.helpers.field_form', ['field' => $field])
                                 @if($field->type == 'relation')
-                                    {!! Form::dSelect($field->name, ${$field->options->on}, $record->{$field->options->column}) !!}
+                                    {!! Form::dSelect($field->name, ${$field->options->on}, old($field->name)) !!}
                                 @endif
                             @endcomponent
                         @endif
@@ -47,13 +44,13 @@
         @endcomponent
         <hr>
         <div class="pull-right">
-            <a href="{{ route('admin.' . strtolower($params->name) . '.show', [$locale, $record]) }}"
+            <a href="{{ route('admin.' . strtolower($params->name) . '.index', [$locale]) }}"
                class="btn btn-alt-danger btn-rounded mb-5">
-                <i class="fa fa-arrow-left"></i> {{ __('Cancel Edit') }}
+                <i class="fa fa-arrow-left"></i> {{ __('Cancel Create') }}
             </a>
             <button type="submit"
                     class="btn btn-success btn-rounded mb-5">
-                <i class="fa fa-check"></i> {{ __('Save ' . $params->name) }}
+                <i class="fa fa-check"></i> {{ __('Create ' . $params->name) }}
             </button>
         </div>
 

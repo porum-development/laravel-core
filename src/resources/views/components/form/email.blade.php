@@ -1,6 +1,6 @@
 <div class="form-group">
     {{ Form::label(__($name), null) }}
-    {{ Form::file($name, array_merge(['class' => $errors->has($name) ? 'form-control is-invalid' : 'form-control'], $attributes)) }}
+    {{ Form::email($name, $value, array_merge(['class' => $errors->has($name) ? 'form-control is-invalid' : 'form-control'], $attributes)) }}
 
     @if ($errors->has($name))
         <span class="invalid-feedback" role="alert">

@@ -63,7 +63,7 @@ class ViewGenerator extends Command
         }
 
         // index.blade.php
-        $views = ['index', 'show', 'edit'];
+        $views = ['index', 'show', 'edit', 'create'];
 
         foreach ($views as $view) {
             $filePath = $viewsPath . '/' . $view . '.blade.php';

@@ -1,5 +1,9 @@
 @extends('devplace::layouts.backend')
 
+@section('breadcrumb')
+    @include('devplace::layouts.partials.breadcrumb', ['items' => $breadcrumb ?? null])
+@endsection
+
 @section('content')
     <!-- Page Content -->
     <div class="content">
@@ -30,12 +34,16 @@
                 @foreach($params->fields as $field)
                     <tr>
                         @if($field->type == 'image')
-                            <th style="width: 50px">{{ __($field->name) }}</th>
+                            <th style="width: 200px">{{ __($field->name) }}</th>
                         @else
                             <th>{{ __($field->name) }}</th>
                         @endif
                         <td>
-                            @component('devplace::components.helpers.field', ['field' => $field, 'value' => $record->{$field->name}])@endcomponent
+                            @if($field->type == 'relation')
+                                @component('devplace::components.helpers.field', ['field' => $field, 'value' => $record->{$field->options->relationName}])@endcomponent
+                            @else
+                                @component('devplace::components.helpers.field', ['field' => $field, 'value' => $record->{$field->name}])@endcomponent
+                            @endif
                         </td>
                     </tr>
                 @endforeach
