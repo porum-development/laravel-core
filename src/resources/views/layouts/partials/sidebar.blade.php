@@ -37,8 +37,8 @@
                 <!-- Logo -->
                 <div class="content-header-item">
                     <a class="" href="/">
-                        <img src="https://devplace.com.br/wp-content/uploads/2018/01/logo-horizontal-500-175-e1516125454261.png"
-                             alt="{{ config('app.name') }}" style="max-height: 50px;">
+                        <img src="{{ asset('vendor/devplace/media/various/devplace.png') }}"
+                             alt="{{ config('app.name') }}" style="max-height: 40px;">
                     </a>
                 </div>
                 <!-- END Logo -->
@@ -52,14 +52,14 @@
             <!-- Visible only in mini mode -->
             <div class="sidebar-mini-visible-b align-v animated fadeIn">
                 <img class="img-avatar img-avatar32"
-                     src="{{ Auth::user()->avatar ?? asset('media/avatars/avatar15.jpg') }}" alt="">
+                     src="{{ Auth::user()->avatar ?? asset('vendor/devplace/media/avatars/avatar15.jpg') }}" alt="">
             </div>
             <!-- END Visible only in mini mode -->
 
             <!-- Visible only in normal mode -->
             <div class="sidebar-mini-hidden-b text-center">
                 <a class="img-link" href="javascript:void(0)">
-                    <img class="img-avatar" src="{{ Auth::user()->avatar ?? asset('media/avatars/avatar15.jpg') }}"
+                    <img class="img-avatar" src="{{ Auth::user()->avatar ?? asset('vendor/devplace/media/avatars/avatar15.jpg') }}"
                          alt="">
                 </a>
                 <ul class="list-inline mt-10">

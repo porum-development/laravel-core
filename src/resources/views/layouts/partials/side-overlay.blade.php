@@ -12,7 +12,7 @@
             <!-- User Info -->
             <div class="content-header-item">
                 <a class="img-link mr-5" href="javascript:void(0)">
-                    <img class="img-avatar img-avatar32" src="{{ Auth::user()->avatar ?? asset('media/avatars/avatar15.jpg') }}" alt="">
+                    <img class="img-avatar img-avatar32" src="{{ Auth::user()->avatar ?? asset('vendor/devplace/media/avatars/avatar15.jpg') }}" alt="">
                 </a>
                 <a class="align-middle link-effect text-primary-dark font-w600" href="javascript:void(0)">{{ Auth::user()->name }}</a>
             </div>

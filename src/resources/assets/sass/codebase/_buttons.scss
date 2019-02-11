@@ -1,0 +1,175 @@
+//
+// Buttons
+// --------------------------------------------------
+
+.btn {
+    height: $pbf-height;
+    font-family: $font-family-base;
+    font-weight: 600;
+
+    &.btn-square {
+        border-radius: 0 !important;
+    }
+
+    &.btn-rounded {
+        border-radius: 50px !important;
+    }
+
+    .si {
+        position: relative;
+        top: 1px;
+    }
+}
+
+.btn-sm,
+.btn-group-sm > .btn {
+    height: $pbf-height-sm;
+}
+
+.btn-lg,
+.btn-group-lg > .btn {
+    height: $pbf-height-lg;
+}
+
+.btn.btn-hero {
+    @include button-size($btn-hero-padding-y, $btn-hero-padding-x, $font-size-base, $pbf-line-height, 3px);
+    height: auto;
+
+    &.btn-sm {
+        @include button-size($btn-hero-padding-y-sm, $btn-hero-padding-x-sm, $font-size-base, $pbf-line-height-sm, 3px);
+    }
+
+    &.btn-lg {
+        @include button-size($btn-hero-padding-y-lg, $btn-hero-padding-x-lg, $font-size-md, $pbf-line-height-lg, 3px);
+    }
+}
+
+.btn.btn-circle {
+    @include button-size(9px, 0, $font-size-base, 1, inherit);
+    min-width: $pbf-height;
+    height: $pbf-height;
+    text-align: center;
+    border-radius: 50% !important;
+
+    &.btn-sm {
+        @include button-size(6px, 0, $font-size-base, 1, inherit);
+        min-width: $pbf-height-sm;
+        height: $pbf-height-sm;
+    }
+
+    &.btn-lg {
+        @include button-size(12px, 0, $font-size-base, 1, inherit);
+        min-width: $pbf-height-lg;
+        height: $pbf-height-lg;
+    }
+
+    > .si {
+        top: 0;
+    }
+}
+
+.btn-secondary {
+    @include button-variant($body-bg, $body-bg);
+}
+
+.btn-outline-secondary {
+    @include button-outline-variant(darken($body-bg-dark, 40%));
+}
+
+.btn-alt-primary {
+    @include button-alt-variant($brand-primary, $brand-lighter);
+}
+
+.btn-alt-secondary {
+    @include button-alt-variant($body-color, $body-bg-dark);
+}
+
+.btn-alt-success {
+    @include button-alt-variant($brand-success, $brand-success-light);
+}
+
+.btn-alt-info {
+    @include button-alt-variant($brand-info, $brand-info-light);
+}
+
+.btn-alt-warning {
+    @include button-alt-variant($brand-warning, $brand-warning-light);
+}
+
+.btn-alt-danger {
+    @include button-alt-variant($brand-danger, $brand-danger-light);
+}
+
+// Used for buttons that adapt to light/dark header and sidebar variations
+.btn-dual-secondary {
+    @include button-dual-variant(darken($body-color, 22%), darken($body-bg, 10%));
+}
+
+.page-header-inverse #page-header .btn-dual-secondary,
+.sidebar-inverse #sidebar .btn-dual-secondary {
+    @include button-dual-variant($white, $brand-darker);
+}
+
+// Social buttons
+/* Shared */
+.loginBtn {
+    box-sizing: border-box;
+    position: relative;
+    /* width: 13em;  - apply for fixed size */
+    padding: 6px 15px 6px 46px;
+    border: none;
+    text-align: left;
+    line-height: 50px;
+    white-space: nowrap;
+    border-radius: 0.2em;
+    font-size: 16px;
+    color: #FFF;
+}
+.loginBtn:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 100%;
+}
+.loginBtn:focus {
+    outline: none;
+}
+.loginBtn:active {
+    box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+
+/* Facebook */
+.loginBtn-facebook {
+    background-color: #4C69BA;
+    background-image: linear-gradient(#4C69BA, #3B55A0);
+    /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+    text-shadow: 0 -1px 0 #354C8C;
+}
+.loginBtn-facebook:before {
+    border-right: #364e92 1px solid;
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+}
+.loginBtn-facebook:hover,
+.loginBtn-facebook:focus {
+    background-color: #5B7BD5;
+    background-image: linear-gradient(#5B7BD5, #4864B1);
+}
+
+
+/* Google */
+.loginBtn-google {
+    /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+    background: #DD4B39;
+}
+.loginBtn-google:before {
+    border-right: #BB3F30 1px solid;
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+}
+.loginBtn-google:hover,
+.loginBtn-google:focus {
+    background: #E74B37;
+}

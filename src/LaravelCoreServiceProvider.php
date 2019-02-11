@@ -61,5 +61,13 @@ class LaravelCoreServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/resources/lang' => resource_path('lang/vendor/devplace'),
         ], 'devplace-lang');
+
+        $this->publishes([
+            __DIR__.'/resources/public' => public_path('vendor/devplace'),
+        ], 'devplace-public');
+
+        $this->publishes([
+            __DIR__.'/resources/assets' => resource_path('assets/vendor/devplace'),
+        ], 'devplace-assets');
     }
 }
