@@ -73,6 +73,8 @@ class PolicyGenerator extends Command
         ]);
 
         // read file policy
+        $this->createEnums($model);
+
         $fileStringed = file_get_contents($this->policyPath);
 
         // replace return false to policy
@@ -98,6 +100,44 @@ class PolicyGenerator extends Command
 
         // replace file content
         file_put_contents($this->policyPath, $fileStringed);
+    }
+
+    private function createEnums($model)
+    {
+        $filePath = base_path() . '/app/Enums';
+        $fileName = 'EPermissionSlug.php';
+
+        if (!file_exists($filePath)) {
+            mkdir($filePath, 0755, true);
+        }
+
+        if (!file_exists($filePath . '/' . $fileName)) {
+            file_put_contents($filePath . '/' . $fileName, "<?php
+
+declare(strict_types=1);
+
+namespace App\Enums;
+
+abstract class EPermissionSlug
+{
+}
+");
+        }
+
+        $permissions = ['STORE', 'UPDATE', 'SHOW', 'DESTROY'];
+
+        $fileContent = file_get_contents($filePath . '/' . $fileName);
+
+        foreach ($permissions as $permission) {
+            $permissionConstant = strtoupper($model) . '_' . $permission;
+            if (!strpos($fileContent, $permissionConstant)) {
+                $fileContent = str_replace('{', sprintf("{
+    const %s = '%s';", $permissionConstant, strtolower($permissionConstant)), $fileContent);
+            }
+        }
+
+
+        file_put_contents($filePath . '/' . $fileName, $fileContent);
     }
 }
 
