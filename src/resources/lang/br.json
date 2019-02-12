@@ -38,6 +38,12 @@
   "role": "perfil",
   "role_id": "perfil",
   "created_at": "cadastrado em",
+  "Remember Me": "Lembrar",
+  "Login with Facebook": "Login com Facebook",
+  "Login with Google": "Login com Google",
+  "Create Account": "Criar Conta",
+  "Forgot Your Password?": "Esqueceu sua senha?",
+  "password": "Senha",
   "Actions": "Ações",
   "Y-m-d h:i:s": "d/m/Y h:i:s",
   "actions": "ações"
