@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DevPlace\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 class RouteGenerator extends Command
 {
@@ -25,8 +26,6 @@ class RouteGenerator extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -35,8 +34,6 @@ class RouteGenerator extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
@@ -48,6 +45,7 @@ class RouteGenerator extends Command
 
         if (!file_exists($file)) {
             $this->error('O arquivo não está presente na pasta "/cruds"');
+
             return;
         }
 
@@ -68,13 +66,11 @@ class RouteGenerator extends Command
 
         if (!strpos($routeFile, $group)) {
             $routeFile .= PHP_EOL . $group . PHP_EOL . '});';
-        };
+        }
 
         $replace = $group . PHP_EOL . "        $newResource";
         $routeFile = str_replace($group, $replace, $routeFile);
 
         file_put_contents($routePath, $routeFile);
-
     }
 }
-

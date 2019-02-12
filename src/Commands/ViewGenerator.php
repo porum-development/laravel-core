@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DevPlace\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
@@ -26,8 +28,6 @@ class ViewGenerator extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -36,8 +36,6 @@ class ViewGenerator extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
@@ -49,6 +47,7 @@ class ViewGenerator extends Command
 
         if (!file_exists($file)) {
             $this->error('O arquivo não está presente na pasta "/cruds"');
+
             return;
         }
 
@@ -89,4 +88,3 @@ class ViewGenerator extends Command
         return true;
     }
 }
-

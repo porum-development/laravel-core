@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DevPlace\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 class ServiceGenerator extends Command
 {
@@ -27,8 +28,6 @@ class ServiceGenerator extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -37,8 +36,6 @@ class ServiceGenerator extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
@@ -50,6 +47,7 @@ class ServiceGenerator extends Command
 
         if (!file_exists($file)) {
             $this->error('O arquivo não está presente na pasta "/cruds"');
+
             return;
         }
 
@@ -118,9 +116,16 @@ class %sService
         return \$model->delete();
     }
 }
-", $model, $model, $model, $model, $lowerModel, $model, $model);
+",
+            $model,
+            $model,
+            $model,
+            $model,
+            $lowerModel,
+            $model,
+            $model
+        );
 
         file_put_contents($servicePath, $fileContent);
     }
 }
-

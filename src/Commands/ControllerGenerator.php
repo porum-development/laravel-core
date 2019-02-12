@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DevPlace\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
@@ -33,8 +35,6 @@ class ControllerGenerator extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -43,8 +43,6 @@ class ControllerGenerator extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
@@ -56,6 +54,7 @@ class ControllerGenerator extends Command
 
         if (!file_exists($file)) {
             $this->error('O arquivo não está presente na pasta "/cruds"');
+
             return;
         }
 
@@ -78,7 +77,7 @@ class ControllerGenerator extends Command
         Artisan::call('make:controller', [
             'name' => 'Web/Admin/' . $model . 'Controller',
             '--model' => 'Models/' . $model,
-            '-r' => true
+            '-r' => true,
         ]);
 
         //read the entire string
@@ -113,7 +112,6 @@ class ControllerGenerator extends Command
 
         //write the entire string
         file_put_contents($this->controllerPath, $fileStringed);
-
     }
 
     private function insertServiceLayer($model, $fileStringed)
@@ -136,8 +134,8 @@ class ControllerGenerator extends Command
 
         $replace = sprintf($string, strtolower($model), $model, strtolower($model), strtolower($model), strtolower($model), $model);
 
-        return str_replace("Controller
-{", $replace, $fileStringed);
+        return str_replace('Controller
+{', $replace, $fileStringed);
     }
 
     private function replaceRequests($model, $fileStringed)
@@ -168,6 +166,7 @@ class ControllerGenerator extends Command
         ];
         
         return view('admin.%s.index', compact('records', 'params', 'breadcrumb'));", $model, $model, $model, strtolower($model));
+
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
 
@@ -197,6 +196,7 @@ class ControllerGenerator extends Command
         }
         
         return view('admin.%s.create', \$vars);", $model, $model, strtolower($model), $model, strtolower($model));
+
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
 
@@ -313,4 +313,3 @@ class ControllerGenerator extends Command
         return preg_replace('/\/\//', $replace, $fileStringed, 1);
     }
 }
-

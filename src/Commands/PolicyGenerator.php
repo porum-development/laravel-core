@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DevPlace\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
@@ -29,8 +31,6 @@ class PolicyGenerator extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -39,8 +39,6 @@ class PolicyGenerator extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
@@ -52,6 +50,7 @@ class PolicyGenerator extends Command
 
         if (!file_exists($file)) {
             $this->error('O arquivo não está presente na pasta "/cruds"');
+
             return;
         }
 
@@ -69,7 +68,7 @@ class PolicyGenerator extends Command
 
         Artisan::call('make:policy', [
             'name' => $model . 'Policy',
-            '--model' => 'Models/' . $model
+            '--model' => 'Models/' . $model,
         ]);
 
         // read file policy
@@ -82,12 +81,12 @@ class PolicyGenerator extends Command
         $fileStringed = str_replace('\\HandlesAuthorization;', $replace, $fileStringed);
 
         // add root before authorization
-        $replace = "use HandlesAuthorization;
+        $replace = 'use HandlesAuthorization;
         
-    public function before(\$user, \$ability)
+    public function before($user, $ability)
     {
-        return \$user->role_id == ERole::ROOT;
-    }";
+        return $user->role_id == ERole::ROOT;
+    }';
         $fileStringed = str_replace('use HandlesAuthorization;', $replace, $fileStringed);
 
         // add actions on each
@@ -104,7 +103,7 @@ class PolicyGenerator extends Command
         $this->addPolicyOnAuthProvider($model);
     }
 
-    private function createEnums($model)
+    private function createEnums($model): void
     {
         $filePath = base_path() . '/app/Enums';
         $fileName = 'EPermissionSlug.php';
@@ -138,26 +137,25 @@ abstract class EPermissionSlug
             }
         }
 
-
         file_put_contents($filePath . '/' . $fileName, $fileContent);
     }
 
-    private function addPolicyOnAuthProvider($model)
+    private function addPolicyOnAuthProvider($model): void
     {
         $filePath = base_path() . '/app/Providers/AuthServiceProvider.php';
 
         $fileContent = file_get_contents($filePath);
 
-        $stringPolicy = sprintf("%s::class => %sPolicy::class", $model, $model);
+        $stringPolicy = sprintf('%s::class => %sPolicy::class', $model, $model);
 
         if (!strpos($fileContent, $stringPolicy)) {
             // add policy
-            $fileContent= str_replace('protected $policies = [', "protected \$policies = [
+            $fileContent = str_replace('protected $policies = [', "protected \$policies = [
         $stringPolicy,", $fileContent);
 
             // add use model
             $stringUse = PHP_EOL . 'use App\\Models\\' . $model . ';' . PHP_EOL . 'use App\\Policies\\' . $model . 'Policy;';
-            $fileContent= str_replace('
+            $fileContent = str_replace('
 class AuthServiceProvider extends ServiceProvider', "$stringUse
             
 class AuthServiceProvider extends ServiceProvider", $fileContent);
@@ -167,4 +165,3 @@ class AuthServiceProvider extends ServiceProvider", $fileContent);
         }
     }
 }
-

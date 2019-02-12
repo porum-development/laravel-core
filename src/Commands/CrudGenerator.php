@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DevPlace\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
@@ -35,8 +37,6 @@ class CrudGenerator extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -45,8 +45,6 @@ class CrudGenerator extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
@@ -58,6 +56,7 @@ class CrudGenerator extends Command
 
         if (!file_exists($file)) {
             $this->error('O arquivo não está presente na pasta "/cruds"');
+
             return;
         }
 
@@ -90,51 +89,50 @@ class CrudGenerator extends Command
         $this->info('Arquivos gerados com sucesso');
     }
 
-    private function generateRequests($model)
+    private function generateRequests($model): void
     {
         Artisan::call('devplace:generate-requests', [
             'model' => $model,
-            '--force' => $this->force
+            '--force' => $this->force,
         ], $this->getOutput());
     }
 
-    private function generateController($model)
+    private function generateController($model): void
     {
         Artisan::call('devplace:generate-controller', [
             'model' => $model,
-            '--force' => $this->force
+            '--force' => $this->force,
         ], $this->getOutput());
     }
 
-    private function generatePolicy($model)
+    private function generatePolicy($model): void
     {
         Artisan::call('devplace:generate-policy', [
             'model' => $model,
-            '--force' => $this->force
+            '--force' => $this->force,
         ], $this->getOutput());
     }
 
-    private function generateService($model)
+    private function generateService($model): void
     {
         Artisan::call('devplace:generate-service', [
             'model' => $model,
-            '--force' => $this->force
+            '--force' => $this->force,
         ], $this->getOutput());
     }
 
-    private function generateRoutes($model)
+    private function generateRoutes($model): void
     {
         Artisan::call('devplace:generate-routes', [
-            'model' => $model
+            'model' => $model,
         ], $this->getOutput());
     }
 
-    private function generateViews($model)
+    private function generateViews($model): void
     {
         Artisan::call('devplace:generate-views', [
             'model' => $model,
-            '--force' => $this->force
+            '--force' => $this->force,
         ], $this->getOutput());
     }
 }
-

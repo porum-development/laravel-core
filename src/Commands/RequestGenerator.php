@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DevPlace\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
@@ -31,8 +33,6 @@ class RequestGenerator extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -41,8 +41,6 @@ class RequestGenerator extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
@@ -54,6 +52,7 @@ class RequestGenerator extends Command
 
         if (!file_exists($file)) {
             $this->error('O arquivo não está presente na pasta "/cruds"');
+
             return;
         }
 
@@ -68,7 +67,7 @@ class RequestGenerator extends Command
         $this->createRequestFor('Update', $model);
     }
 
-    private function createRequestFor($type, $model)
+    private function createRequestFor($type, $model): void
     {
         // get real path request
         $requestPath = $type == 'Update' ? $this->requestUpdatePath : $this->requestStorePath;
@@ -84,7 +83,7 @@ class RequestGenerator extends Command
 
         // call artisan request
         Artisan::call('make:request', [
-            'name' => 'Web/' . $type . $model . 'Request'
+            'name' => 'Web/' . $type . $model . 'Request',
         ]);
 
         // read file request
@@ -98,11 +97,11 @@ class RequestGenerator extends Command
         $fileStringed = str_replace('return false;', $replace, $fileStringed);
 
         // add Auth facade
-        $replace = sprintf("\\FormRequest;%suse Illuminate\\Support\\Facades\\Auth;", PHP_EOL);
+        $replace = sprintf('\\FormRequest;%suse Illuminate\\Support\\Facades\\Auth;', PHP_EOL);
         $fileStringed = str_replace('\\FormRequest;', $replace, $fileStringed);
 
         // add use model
-        $replace = sprintf("\\FormRequest;%suse App\\Models\\%s;", PHP_EOL, $model);
+        $replace = sprintf('\\FormRequest;%suse App\\Models\\%s;', PHP_EOL, $model);
         $fileStringed = str_replace('\\FormRequest;', $replace, $fileStringed);
 
         // add validations
@@ -126,6 +125,4 @@ class RequestGenerator extends Command
         // replace file content
         file_put_contents($requestPath, $fileStringed);
     }
-
 }
-
