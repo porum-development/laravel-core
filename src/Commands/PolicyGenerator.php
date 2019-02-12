@@ -91,7 +91,7 @@ class PolicyGenerator extends Command
         $fileStringed = str_replace('use HandlesAuthorization;', $replace, $fileStringed);
 
         // add actions on each
-        $actions = ['SHOW', 'STORE', 'UPDATE', 'DESTROY'];
+        $actions = ['SHOW', 'STORE', 'UPDATE', 'DESTROY', 'UPDATE', 'DESTROY'];
 
         foreach ($actions as $action) {
             $replace = sprintf("return \$user->role->permissions()->where('slug', EPermissionSlug::%s_%s)->exists();", strtoupper($model), $action);
@@ -100,6 +100,8 @@ class PolicyGenerator extends Command
 
         // replace file content
         file_put_contents($this->policyPath, $fileStringed);
+
+        $this->addPolicyOnAuthProvider($model);
     }
 
     private function createEnums($model)
@@ -138,6 +140,31 @@ abstract class EPermissionSlug
 
 
         file_put_contents($filePath . '/' . $fileName, $fileContent);
+    }
+
+    private function addPolicyOnAuthProvider($model)
+    {
+        $filePath = base_path() . '/app/Providers/AuthServiceProvider.php';
+
+        $fileContent = file_get_contents($filePath);
+
+        $stringPolicy = sprintf("%s::class => %sPolicy::class", $model, $model);
+
+        if (!strpos($fileContent, $stringPolicy)) {
+            // add policy
+            $fileContent= str_replace('protected $policies = [', "protected \$policies = [
+        $stringPolicy,", $fileContent);
+
+            // add use model
+            $stringUse = PHP_EOL . 'use App\\Models\\' . $model . ';' . PHP_EOL . 'use App\\Policies\\' . $model . 'Policy;';
+            $fileContent= str_replace('
+class AuthServiceProvider extends ServiceProvider', "$stringUse
+            
+class AuthServiceProvider extends ServiceProvider", $fileContent);
+
+            // save file
+            file_put_contents($filePath, $fileContent);
+        }
     }
 }
 
