@@ -85,7 +85,9 @@ class PolicyGenerator extends Command
         
     public function before($user, $ability)
     {
-        return $user->role_id == ERole::ROOT;
+        if ($user->role_id == ERole::ROOT) {
+            return true;
+        }
     }';
         $fileStringed = str_replace('use HandlesAuthorization;', $replace, $fileStringed);
 
