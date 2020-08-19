@@ -9,7 +9,9 @@
             "email": "vinicius@porum.com.br"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^7.2"
+    },
     "autoload": {
         "psr-4": {
             "Porum\\LaravelCore\\": "src/"
