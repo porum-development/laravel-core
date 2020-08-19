@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevPlace\LaravelCore\Commands;
+namespace Porum\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
 
@@ -13,7 +13,7 @@ class ViewGenerator extends Command
      *
      * @var string
      */
-    protected $signature = 'devplace:generate-views {model} {--force}';
+    protected $signature = 'porum:generate-views {model} {--force}';
 
     /**
      * The console command description.

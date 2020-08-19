@@ -121,7 +121,7 @@
                 <!-- END User Dropdown -->
 
                 <!-- Notifications -->
-                {{-- @include('devplace::layouts.partials.notifications')--}}
+                {{-- @include('porum::layouts.partials.notifications')--}}
                 <!-- END Notifications -->
 
                 <!-- Toggle Side Overlay -->

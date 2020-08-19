@@ -37,7 +37,7 @@
                 <!-- Logo -->
                 <div class="content-header-item">
                     <a class="" href="/">
-                        <img src="{{ asset('vendor/devplace/media/various/devplace.png') }}"
+                        <img src="{{ asset('vendor/porum/media/various/porum.png') }}"
                              alt="{{ config('app.name') }}" style="max-height: 40px;">
                     </a>
                 </div>
@@ -52,14 +52,14 @@
             <!-- Visible only in mini mode -->
             <div class="sidebar-mini-visible-b align-v animated fadeIn">
                 <img class="img-avatar img-avatar32"
-                     src="{{ Auth::user()->avatar ?? asset('vendor/devplace/media/avatars/avatar15.jpg') }}" alt="">
+                     src="{{ Auth::user()->avatar ?? asset('vendor/porum/media/avatars/avatar15.jpg') }}" alt="">
             </div>
             <!-- END Visible only in mini mode -->
 
             <!-- Visible only in normal mode -->
             <div class="sidebar-mini-hidden-b text-center">
                 <a class="img-link" href="javascript:void(0)">
-                    <img class="img-avatar" src="{{ Auth::user()->avatar ?? asset('vendor/devplace/media/avatars/avatar15.jpg') }}"
+                    <img class="img-avatar" src="{{ Auth::user()->avatar ?? asset('vendor/porum/media/avatars/avatar15.jpg') }}"
                          alt="">
                 </a>
                 <ul class="list-inline mt-10">
@@ -92,7 +92,7 @@
 
         <!-- Side Navigation -->
         <div class="content-side content-side-full">
-            @include('devplace::layouts.partials.nav')
+            @include('porum::layouts.partials.nav')
         </div>
         <!-- END Side Navigation -->
     </div>

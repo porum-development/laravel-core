@@ -1,4 +1,4 @@
-@extends('devplace::layouts.simple')
+@extends('porum::layouts.simple')
 
 @section('content')
     <div class="bg-body-dark bg-pattern">
@@ -8,7 +8,7 @@
                     <!-- Header -->
                     <div class="py-30 text-center">
                         <a class="link-effect font-w700" href="/">
-                            <img src="https://devplace.com.br/wp-content/uploads/2018/01/logo-horizontal-500-175-e1516125454261.png"
+                            <img src="https://porum.com.br/wp-content/uploads/2018/01/logo-horizontal-500-175-e1516125454261.png"
                                  alt="">
                         </a>
                     </div>

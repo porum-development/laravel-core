@@ -1,4 +1,4 @@
-@extends('devplace::layouts.simple')
+@extends('porum::layouts.simple')
 
 @section('content')
     <div class="bg-body-dark bg-pattern">
@@ -14,7 +14,7 @@
                     </div>
                     <!-- END Header -->
 
-                    @component('devplace::components.ui.blocks.default', ['bg' => 'bg-gd-aqua'])
+                    @component('porum::components.ui.blocks.default', ['bg' => 'bg-gd-aqua'])
                         @slot('title')
                             {{ __('Reset Password') }}
                         @endslot
@@ -42,7 +42,7 @@
 
                         @slot('footer')
                             <div class="form-group text-center clearfix">
-                                @component('devplace::components.ui.links.default', ['href' => route('login', [$locale]), 'icon' => 'fa-arrow-left', 'class' => 'pull-left'])
+                                @component('porum::components.ui.links.default', ['href' => route('login', [$locale]), 'icon' => 'fa-arrow-left', 'class' => 'pull-left'])
                                     {{ __('Login') }}
                                 @endcomponent
                             </div>

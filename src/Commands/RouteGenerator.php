@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevPlace\LaravelCore\Commands;
+namespace Porum\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
 
@@ -13,7 +13,7 @@ class RouteGenerator extends Command
      *
      * @var string
      */
-    protected $signature = 'devplace:generate-routes {model}';
+    protected $signature = 'porum:generate-routes {model}';
 
     /**
      * The console command description.

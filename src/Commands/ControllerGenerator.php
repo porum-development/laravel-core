@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevPlace\LaravelCore\Commands;
+namespace Porum\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -14,7 +14,7 @@ class ControllerGenerator extends Command
      *
      * @var string
      */
-    protected $signature = 'devplace:generate-controller {model} {--force}';
+    protected $signature = 'porum:generate-controller {model} {--force}';
 
     /**
      * The console command description.

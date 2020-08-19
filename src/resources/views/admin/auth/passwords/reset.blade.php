@@ -1,4 +1,4 @@
-@extends('devplace::layouts.simple')
+@extends('porum::layouts.simple')
 
 @section('content')
 <div class="container">

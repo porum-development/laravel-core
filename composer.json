@@ -1,24 +1,24 @@
 {
-    "name": "devplace/laravel-core",
-    "description": "Estrutura pabase para projetos Laravel da DevPlace",
+    "name": "porum-development/laravel-core",
+    "description": "Estrutura pabase para projetos Laravel da Porum",
     "type": "library",
     "license": "proprietary",
     "authors": [
         {
             "name": "Vinicius Medeiros",
-            "email": "vinicius@devplace.com.br"
+            "email": "vinicius@porum.com.br"
         }
     ],
     "require": {},
     "autoload": {
         "psr-4": {
-            "DevPlace\\LaravelCore\\": "src/"
+            "Porum\\LaravelCore\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "DevPlace\\LaravelCore\\LaravelCoreServiceProvider"
+                "Porum\\LaravelCore\\LaravelCoreServiceProvider"
             ]
         }
     }

@@ -1,7 +1,7 @@
-@extends('devplace::layouts.backend')
+@extends('porum::layouts.backend')
 
 @section('breadcrumb')
-    @include('devplace::layouts.partials.breadcrumb', ['items' => $breadcrumb ?? null])
+    @include('porum::layouts.partials.breadcrumb', ['items' => $breadcrumb ?? null])
 @endsection
 
 @section('content')
@@ -26,7 +26,7 @@
             </div>
         </h2>
 
-        @component('devplace::components.ui.blocks.default')
+        @component('porum::components.ui.blocks.default')
             @slot('title')
                 {{ __('Editing ' . $params->name) }}
             @endslot
@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-12">
                         @if($field->onEditForm)
-                            @component('devplace::components.helpers.field_form', ['field' => $field])
+                            @component('porum::components.helpers.field_form', ['field' => $field])
                                 @if($field->type == 'relation')
                                     {!! Form::dSelect($field->name, ${$field->options->on}, $record->{$field->options->column}) !!}
                                 @endif

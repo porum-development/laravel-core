@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevPlace\LaravelCore\Commands;
+namespace Porum\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
 
@@ -13,7 +13,7 @@ class ServiceGenerator extends Command
      *
      * @var string
      */
-    protected $signature = 'devplace:generate-service {model} {--force}';
+    protected $signature = 'porum:generate-service {model} {--force}';
 
     /**
      * The console command description.

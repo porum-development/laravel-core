@@ -1,14 +1,14 @@
 <?php
 
-namespace DevPlace\LaravelCore;
+namespace Porum\LaravelCore;
 
-use DevPlace\LaravelCore\Commands\ControllerGenerator;
-use DevPlace\LaravelCore\Commands\CrudGenerator;
-use DevPlace\LaravelCore\Commands\PolicyGenerator;
-use DevPlace\LaravelCore\Commands\RequestGenerator;
-use DevPlace\LaravelCore\Commands\RouteGenerator;
-use DevPlace\LaravelCore\Commands\ServiceGenerator;
-use DevPlace\LaravelCore\Commands\ViewGenerator;
+use Porum\LaravelCore\Commands\ControllerGenerator;
+use Porum\LaravelCore\Commands\CrudGenerator;
+use Porum\LaravelCore\Commands\PolicyGenerator;
+use Porum\LaravelCore\Commands\RequestGenerator;
+use Porum\LaravelCore\Commands\RouteGenerator;
+use Porum\LaravelCore\Commands\ServiceGenerator;
+use Porum\LaravelCore\Commands\ViewGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelCoreServiceProvider extends ServiceProvider
@@ -47,27 +47,27 @@ class LaravelCoreServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
 
         // views
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'devplace');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'porum');
 
         // translation
         $this->loadJsonTranslationsFrom(__DIR__ . '/resources/lang');
 
         // publishes
         $this->publishes([
-            __DIR__ . '/resources/views' => resource_path('views/vendor/devplace'),
-        ], 'devplace-views');
+            __DIR__ . '/resources/views' => resource_path('views/vendor/porum'),
+        ], 'porum-views');
 
         // translations
         $this->publishes([
-            __DIR__.'/resources/lang' => resource_path('lang/vendor/devplace'),
-        ], 'devplace-lang');
+            __DIR__.'/resources/lang' => resource_path('lang/vendor/porum'),
+        ], 'porum-lang');
 
         $this->publishes([
-            __DIR__.'/resources/public' => public_path('vendor/devplace'),
-        ], 'devplace-public');
+            __DIR__.'/resources/public' => public_path('vendor/porum'),
+        ], 'porum-public');
 
         $this->publishes([
-            __DIR__.'/resources/assets' => resource_path('assets/vendor/devplace'),
-        ], 'devplace-assets');
+            __DIR__.'/resources/assets' => resource_path('assets/vendor/porum'),
+        ], 'porum-assets');
     }
 }

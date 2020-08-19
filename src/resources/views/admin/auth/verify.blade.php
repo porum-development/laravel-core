@@ -1,4 +1,4 @@
-@extends('devplace::layouts.backend')
+@extends('porum::layouts.backend')
 
 @section('content')
     <!-- Page Content -->

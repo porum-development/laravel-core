@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevPlace\LaravelCore\Commands;
+namespace Porum\LaravelCore\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -14,7 +14,7 @@ class CrudGenerator extends Command
      *
      * @var string
      */
-    protected $signature = 'devplace:generate-crud {model} {--force}';
+    protected $signature = 'porum:generate-crud {model} {--force}';
 
     /**
      * The console command description.
@@ -91,7 +91,7 @@ class CrudGenerator extends Command
 
     private function generateRequests($model): void
     {
-        Artisan::call('devplace:generate-requests', [
+        Artisan::call('porum:generate-requests', [
             'model' => $model,
             '--force' => $this->force,
         ], $this->getOutput());
@@ -99,7 +99,7 @@ class CrudGenerator extends Command
 
     private function generateController($model): void
     {
-        Artisan::call('devplace:generate-controller', [
+        Artisan::call('porum:generate-controller', [
             'model' => $model,
             '--force' => $this->force,
         ], $this->getOutput());
@@ -107,7 +107,7 @@ class CrudGenerator extends Command
 
     private function generatePolicy($model): void
     {
-        Artisan::call('devplace:generate-policy', [
+        Artisan::call('porum:generate-policy', [
             'model' => $model,
             '--force' => $this->force,
         ], $this->getOutput());
@@ -115,7 +115,7 @@ class CrudGenerator extends Command
 
     private function generateService($model): void
     {
-        Artisan::call('devplace:generate-service', [
+        Artisan::call('porum:generate-service', [
             'model' => $model,
             '--force' => $this->force,
         ], $this->getOutput());
@@ -123,14 +123,14 @@ class CrudGenerator extends Command
 
     private function generateRoutes($model): void
     {
-        Artisan::call('devplace:generate-routes', [
+        Artisan::call('porum:generate-routes', [
             'model' => $model,
         ], $this->getOutput());
     }
 
     private function generateViews($model): void
     {
-        Artisan::call('devplace:generate-views', [
+        Artisan::call('porum:generate-views', [
             'model' => $model,
             '--force' => $this->force,
         ], $this->getOutput());

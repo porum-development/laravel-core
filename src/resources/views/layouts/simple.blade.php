@@ -4,18 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-        <title>{{ config('app.name', 'DevPlace') }}</title>
+        <title>{{ config('app.name', 'Porum') }}</title>
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <meta name="author" content="DevPlace">
+        <meta name="author" content="Porum">
         <meta name="robots" content="noindex, nofollow">
 
         <!-- Icons -->
-        <link rel="shortcut icon" href="{{ asset('vendor/devplace/media/favicons/favicon.png') }}">
-        <link rel="icon" sizes="192x192" type="image/png" href="{{ asset('vendor/devplace/media/favicons/favicon-192x192.png') }}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('vendor/devplace/media/favicons/apple-touch-icon-180x180.png') }}">
+        <link rel="shortcut icon" href="{{ asset('vendor/porum/media/favicons/favicon.png') }}">
+        <link rel="icon" sizes="192x192" type="image/png" href="{{ asset('vendor/porum/media/favicons/favicon-192x192.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('vendor/porum/media/favicons/apple-touch-icon-180x180.png') }}">
 
         <!-- Fonts and Styles -->
         @yield('css_before')

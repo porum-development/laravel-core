@@ -1,4 +1,4 @@
-@extends('devplace::layouts.simple')
+@extends('porum::layouts.simple')
 
 @section('content')
     <!-- Page Content -->
@@ -9,14 +9,14 @@
                     <!-- Header -->
                     <div class="py-30 text-center">
                         <a class="link-effect font-w700" href="/">
-                            <img src="https://devplace.com.br/wp-content/uploads/2018/01/logo-horizontal-500-175-e1516125454261.png"
+                            <img src="https://porum.com.br/wp-content/uploads/2018/01/logo-horizontal-500-175-e1516125454261.png"
                                  alt="">
                         </a>
                     </div>
                     <!-- END Header -->
 
                     {!! Form::open(['route' => ['login', $locale], 'method' => 'post']) !!}
-                    @component('devplace::components.ui.blocks.default', ['bg' => 'bg-gd-aqua'])
+                    @component('porum::components.ui.blocks.default', ['bg' => 'bg-gd-aqua'])
                         @slot('title')
                             {{ __('Login') }}
                         @endslot
@@ -55,12 +55,12 @@
 
                         @slot('footer')
                             <div class="form-group text-center clearfix">
-                                @component('devplace::components.ui.links.default', ['href' => route('register', [$locale]), 'icon' => 'fa-plus', 'class' => 'pull-left'])
+                                @component('porum::components.ui.links.default', ['href' => route('register', [$locale]), 'icon' => 'fa-plus', 'class' => 'pull-left'])
                                     {{ __('Create Account') }}
                                 @endcomponent
 
                                 @if (Route::has('password.request'))
-                                    @component('devplace::components.ui.links.default', ['href' => route('password.request', [$locale]), 'icon' => 'fa-warning', 'class' => 'pull-right'])
+                                    @component('porum::components.ui.links.default', ['href' => route('password.request', [$locale]), 'icon' => 'fa-warning', 'class' => 'pull-right'])
                                     {{ __('Forgot Your Password?') }}
                                     @endcomponent
                                 @endif

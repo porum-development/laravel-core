@@ -1,7 +1,7 @@
-@extends('devplace::layouts.backend')
+@extends('porum::layouts.backend')
 
 @section('breadcrumb')
-    @include('devplace::layouts.partials.breadcrumb', ['items' => $breadcrumb ?? null])
+    @include('porum::layouts.partials.breadcrumb', ['items' => $breadcrumb ?? null])
 @endsection
 
 @section('content')
@@ -25,12 +25,12 @@
             </div>
         </h2>
 
-        @component('devplace::components.ui.blocks.default')
+        @component('porum::components.ui.blocks.default')
             @slot('title')
                 {{ __($params->name . ' details') }}
             @endslot
 
-            @component('devplace::components.table.default')
+            @component('porum::components.table.default')
                 @foreach($params->fields as $field)
                     <tr>
                         @if($field->type == 'image')
@@ -40,9 +40,9 @@
                         @endif
                         <td>
                             @if($field->type == 'relation')
-                                @component('devplace::components.helpers.field', ['field' => $field, 'value' => $record->{$field->options->relationName}])@endcomponent
+                                @component('porum::components.helpers.field', ['field' => $field, 'value' => $record->{$field->options->relationName}])@endcomponent
                             @else
-                                @component('devplace::components.helpers.field', ['field' => $field, 'value' => $record->{$field->name}])@endcomponent
+                                @component('porum::components.helpers.field', ['field' => $field, 'value' => $record->{$field->name}])@endcomponent
                             @endif
                         </td>
                     </tr>

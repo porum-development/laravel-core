@@ -1,7 +1,7 @@
-@extends('devplace::layouts.backend')
+@extends('porum::layouts.backend')
 
 @section('breadcrumb')
-    @include('devplace::layouts.partials.breadcrumb', ['items' => $breadcrumb ?? null])
+    @include('porum::layouts.partials.breadcrumb', ['items' => $breadcrumb ?? null])
 @endsection
 
 @section('content')
@@ -18,12 +18,12 @@
             </div>
         </h2>
 
-        @component('devplace::components.ui.blocks.default')
+        @component('porum::components.ui.blocks.default')
             @slot('title')
                 {{ __($params->name . ' list') }}
             @endslot
 
-            @component('devplace::components.table.default')
+            @component('porum::components.table.default')
 
                 @slot('thead')
                     <th class="text-center" style="width: 50px;">#</th>
@@ -48,15 +48,15 @@
                             @if($field->visibleOnList)
                                 <td>
                                     @if($field->type == 'relation')
-                                        @component('devplace::components.helpers.field', ['field' => $field, 'value' => $record->{$field->options->relationName}])@endcomponent
+                                        @component('porum::components.helpers.field', ['field' => $field, 'value' => $record->{$field->options->relationName}])@endcomponent
                                     @else
-                                        @component('devplace::components.helpers.field', ['field' => $field, 'value' => $record->{$field->name}])@endcomponent
+                                        @component('porum::components.helpers.field', ['field' => $field, 'value' => $record->{$field->name}])@endcomponent
                                     @endif
                                 </td>
                             @endif
                         @endforeach
                         <td class="text-center">
-                            @component('devplace::components.table.column.actions', ['options' => ['show', 'edit', 'delete'], 'routeName' => strtolower($params->name), 'routeParams' => [$locale, $record]])@endcomponent
+                            @component('porum::components.table.column.actions', ['options' => ['show', 'edit', 'delete'], 'routeName' => strtolower($params->name), 'routeParams' => [$locale, $record]])@endcomponent
                         </td>
                     </tr>
                 @endforeach
